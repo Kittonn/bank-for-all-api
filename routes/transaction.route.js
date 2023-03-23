@@ -1,17 +1,17 @@
 const router = require("express").Router();
+const { deposit, withdraw } = require("../controllers/transaction.controller");
 const passport = require("passport");
-const { getProfile, getSummary } = require("../controllers/user.controller");
 
-router.get(
-  "/profile",
+router.post(
+  "/deposit",
   passport.authenticate("jwt", { session: false }),
-  getProfile
+  deposit
 );
 
-router.get(
-  "/summary",
+router.post(
+  "/withdraw",
   passport.authenticate("jwt", { session: false }),
-  getSummary
+  withdraw
 );
 
 module.exports = router;

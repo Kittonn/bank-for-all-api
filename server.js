@@ -1,8 +1,6 @@
 const express = require("express");
 const passport = require("passport");
 const connectDB = require("./database/connect");
-const authRoute = require("./routes/auth.route");
-const userRoute = require("./routes/user.route");
 require("dotenv").config();
 require("./config/passport")(passport);
 
@@ -16,9 +14,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(passport.initialize());
 
-
-app.use("/auth", authRoute);
-app.use("/user", userRoute);
+app.use("/auth", require("./routes/auth.route"));
+app.use("/user", require("./routes/user.route"));
+app.use("/transaction", require("./routes/transaction.route"));
+app.use("/peershare", require("./routes/peershare.route"));
 
 app.get("/", (req, res) => {
   return res.status(200).json({
